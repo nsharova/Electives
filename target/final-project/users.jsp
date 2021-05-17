@@ -7,7 +7,7 @@
 <body>
 <c:forEach items="${requestScope.users}" var="user">
     <h1>Hello, <c:out value="${user.firstName}" default="Anonymous"/> <c:out value="${user.lastName}" default="Anonymous"/>,
-        your age is ${user.age}</h1>
+        your login is <c:out value="${user.login}" default="Login"/> </h1>
 </c:forEach>
 </body>
 </html>
