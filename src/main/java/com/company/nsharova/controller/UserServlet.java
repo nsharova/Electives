@@ -1,6 +1,6 @@
-package com.epam.nsharova.controller;
+package com.company.nsharova.controller;
 
-import com.epam.nsharova.model.User;
+import com.company.nsharova.model.entity.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
