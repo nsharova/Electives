@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS courses
     name        VARCHAR(255) NOT NULL UNIQUE,
     description VARCHAR(255) NOT NULL,
     duration    LONG         NOT NULL,
+    ownerId     INT          NOT NULL,
     level       INT          NOT NULL
     );
 

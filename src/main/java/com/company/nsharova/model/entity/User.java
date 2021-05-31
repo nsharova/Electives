@@ -1,7 +1,6 @@
 package com.company.nsharova.model.entity;
 
 import lombok.Data;
-import java.util.List;
 
 @Data
 public class User {
