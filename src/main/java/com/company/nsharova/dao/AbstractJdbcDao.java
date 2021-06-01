@@ -20,6 +20,7 @@ public abstract class AbstractJdbcDao<T> {
   private final StatementPopulator<T> populator;
 
   protected abstract String createQuery();
+  protected abstract String readQuery();
   protected abstract String removeQuery();
   protected abstract String findAllQuery();
 
@@ -45,6 +46,34 @@ public abstract class AbstractJdbcDao<T> {
     }
   }
 
+  public T read(Integer id) {
+    T entity = null;
+    Connection connection = null;
+    try {
+      connection = createConnection();
+
+      try (PreparedStatement preparedStatement = connection
+          .prepareStatement(readQuery())) {
+        preparedStatement.setString(1, id.toString());
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+          if (resultSet.next()) {
+            entity = extractor.extractFrom(resultSet);
+          }
+        }
+      } catch (SQLException ex) {
+        //throw new DaoException("Cannot find user by given login", ex);
+      }
+
+      connection.commit();
+    } catch (SQLException ex) {
+      rollback(connection);
+      //throw new DaoException("Cannot commit transaction", ex);
+    } finally {
+      close(connection);
+    }
+    return entity;
+  }
+
   public boolean remove(Integer id) {
     Connection connection = null;
     try {
@@ -52,7 +81,7 @@ public abstract class AbstractJdbcDao<T> {
 
       try (PreparedStatement preparedStatement = connection
           .prepareStatement(removeQuery())) {
-        preparedStatement.setInt(1, id);
+        preparedStatement.setString(1, id.toString());
         System.err.println(preparedStatement);
         preparedStatement.executeUpdate();
         System.err.println("removed");

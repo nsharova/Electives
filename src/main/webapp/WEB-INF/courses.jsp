@@ -29,6 +29,7 @@
         </tr>
     </c:forEach>
 </table>
+<a href="add_course">Add course</a>
 
 </body>
 </html>

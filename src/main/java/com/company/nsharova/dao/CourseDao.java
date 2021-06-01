@@ -35,6 +35,11 @@ public class CourseDao extends AbstractJdbcDao<Course> {
   }
 
   @Override
+  protected String readQuery() {
+    return "SELECT * FROM electives.courses WHERE id = ?";
+  }
+
+  @Override
   protected String removeQuery() {
     return SQL_REMOVE_COURSE;
   }

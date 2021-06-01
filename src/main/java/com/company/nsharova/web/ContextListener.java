@@ -12,8 +12,6 @@ import com.company.nsharova.sql.CreateCourseStatementPopulator;
 import com.company.nsharova.sql.StatementPopulator;
 import com.company.nsharova.validator.CourseDtoValidator;
 import com.company.nsharova.validator.Validator;
-import com.mysql.cj.jdbc.MysqlDataSource;
-import com.mysql.jdbc.Driver;
 import java.sql.ResultSet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -35,11 +33,8 @@ public class ContextListener implements ServletContextListener {
     DataSource dataSource = dataSource();
 
     // extractor
-    Extractor<Course, ResultSet> courseFromRsExtractor = new CourseFromRsExtractor();
-    StatementPopulator<Course> coursePopulator = new CreateCourseStatementPopulator();
-
-     Extractor<CourseDto, HttpServletRequest> courseDtoExtractor = new CourseDtoExtractor();
-     servletContext.setAttribute("courseDtoExtractor", courseDtoExtractor);
+    Extractor<CourseDto, HttpServletRequest> courseDtoExtractor = new CourseDtoExtractor();
+    servletContext.setAttribute("courseDtoExtractor", courseDtoExtractor);
 
     Validator<CourseDto> courseDtoValidator = new CourseDtoValidator();
     servletContext.setAttribute("courseDtoValidator", courseDtoValidator);
@@ -48,6 +43,8 @@ public class ContextListener implements ServletContextListener {
     servletContext.setAttribute("courseExtractor", courseExtractor);
 
     // dao
+    Extractor<Course, ResultSet> courseFromRsExtractor = new CourseFromRsExtractor();
+    StatementPopulator<Course> coursePopulator = new CreateCourseStatementPopulator();
     CourseDao courseDao = new CourseDao(dataSource, courseFromRsExtractor, coursePopulator);
 
     // service
