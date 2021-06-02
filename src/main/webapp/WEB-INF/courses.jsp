@@ -21,7 +21,7 @@
             <td><c:out value="${course.ownerId}"/></td>
             <td><c:out value="${course.userLevel}"/></td>
             <td>
-                <form method="POST" action="delete_course">
+                <form method="POST" action="?command=delete_course">
                     <input id="courseId" name="courseId" value="${course.id}" hidden/>
                     <button>Delete</button>
                 </form>
@@ -29,7 +29,7 @@
         </tr>
     </c:forEach>
 </table>
-<a href="add_course">Add course</a>
+<a href="?command=add_course">Add course</a>
 
 </body>
 </html>

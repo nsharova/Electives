@@ -5,7 +5,7 @@
     <title>Add course</title>
 </head>
 <body>
-<form method="POST" action="add_course">
+<form method="POST" action="?command=add_course">
     <input id="name" name="name" type="text"/>
     <label for="name">Name</label>
     <c:if test="${not empty errors['name']}">
@@ -21,8 +21,12 @@
     <c:if test="${not empty errors['duration']}">
         <span>${errors['duration']}</span>
     </c:if>
-    <input id="levelId" name="levelId" type="text"/>
-    <label for="levelId">Level</label>
+    <label for="level">Choose Level:</label>
+    <select name="level" id="level">
+        <c:forEach items="${requestScope.levels}" var="level">
+            <option value="${level.accessLevel}">${level.name()}</option>
+        </c:forEach>
+    </select>
     <input id="ownerId" name="ownerId" type="hidden" value="1"/>
     <button>Create</button>
 </form>

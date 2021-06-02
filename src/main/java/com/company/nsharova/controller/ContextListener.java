@@ -1,16 +1,14 @@
-package com.company.nsharova.web;
+package com.company.nsharova.controller;
 
 import com.company.nsharova.dao.CourseDao;
-import com.company.nsharova.dto.CourseDto;
 import com.company.nsharova.extractor.Extractor;
-import com.company.nsharova.extractor.impl.CourseDtoExtractor;
 import com.company.nsharova.extractor.impl.CourseExtractor;
 import com.company.nsharova.extractor.impl.CourseFromRsExtractor;
 import com.company.nsharova.model.entity.Course;
 import com.company.nsharova.service.CourseService;
 import com.company.nsharova.sql.CreateCourseStatementPopulator;
 import com.company.nsharova.sql.StatementPopulator;
-import com.company.nsharova.validator.CourseDtoValidator;
+import com.company.nsharova.validator.CourseValidator;
 import com.company.nsharova.validator.Validator;
 import java.sql.ResultSet;
 import javax.servlet.ServletContext;
@@ -26,21 +24,12 @@ public class ContextListener implements ServletContextListener {
 
   @Override
   public void contextInitialized(ServletContextEvent event) {
-    // get context
-    ServletContext servletContext = event.getServletContext();
-
     // data source
     DataSource dataSource = dataSource();
 
     // extractor
-    Extractor<CourseDto, HttpServletRequest> courseDtoExtractor = new CourseDtoExtractor();
-    servletContext.setAttribute("courseDtoExtractor", courseDtoExtractor);
-
-    Validator<CourseDto> courseDtoValidator = new CourseDtoValidator();
-    servletContext.setAttribute("courseDtoValidator", courseDtoValidator);
-
-    Extractor<Course, CourseDto> courseExtractor = new CourseExtractor();
-    servletContext.setAttribute("courseExtractor", courseExtractor);
+    Extractor<Course, HttpServletRequest> courseExtractor = new CourseExtractor();
+    Validator<Course> courseValidator = new CourseValidator();
 
     // dao
     Extractor<Course, ResultSet> courseFromRsExtractor = new CourseFromRsExtractor();
@@ -49,7 +38,17 @@ public class ContextListener implements ServletContextListener {
 
     // service
     CourseService courseService = new CourseService(courseDao);
-    servletContext.setAttribute("courseService", courseService);
+
+    // commands
+    AddCourseCommand addCourseCommand = new AddCourseCommand(
+        courseExtractor, courseValidator, courseService);
+    CommandContainer.register(addCourseCommand);
+    GetCoursesCommand getCoursesCommand = new GetCoursesCommand(
+        courseService);
+    CommandContainer.register(getCoursesCommand);
+    DeleteCourseCommand deleteCourseCommand = new DeleteCourseCommand(
+        courseService);
+    CommandContainer.register(deleteCourseCommand);
   }
 
   private DataSource dataSource() {
@@ -67,7 +66,6 @@ public class ContextListener implements ServletContextListener {
     dataSource.setUrl("jdbc:mysql://localhost:3306/electives");
     dataSource.setUsername("root");
     dataSource.setPassword("Fqdtyuj4808)");
-    dataSource.setDefaultAutoCommit(false);
 
     return dataSource;
   }

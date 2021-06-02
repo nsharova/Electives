@@ -81,7 +81,7 @@ public abstract class AbstractJdbcDao<T> {
 
       try (PreparedStatement preparedStatement = connection
           .prepareStatement(removeQuery())) {
-        preparedStatement.setString(1, id.toString());
+        preparedStatement.setInt(1, id);
         System.err.println(preparedStatement);
         preparedStatement.executeUpdate();
         System.err.println("removed");
