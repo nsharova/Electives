@@ -1,6 +1,6 @@
-package com.company.nsharova.service;
+package com.company.nsharova.model.service;
 
-import com.company.nsharova.dao.CourseDao;
+import com.company.nsharova.model.dao.CourseDao;
 import com.company.nsharova.model.entity.Course;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

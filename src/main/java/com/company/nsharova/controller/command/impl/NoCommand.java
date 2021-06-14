@@ -1,6 +1,8 @@
-package com.company.nsharova.controller;
+package com.company.nsharova.controller.command.impl;
 
-import com.company.nsharova.Paths;
+import com.company.nsharova.constant.Paths;
+import com.company.nsharova.controller.command.Command;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

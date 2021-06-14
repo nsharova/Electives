@@ -1,7 +1,7 @@
-package com.company.nsharova.dao;
+package com.company.nsharova.model.dao;
 
 import com.company.nsharova.extractor.Extractor;
-import com.company.nsharova.sql.StatementPopulator;
+import com.company.nsharova.sql.StatementInsertion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +17,7 @@ public abstract class AbstractJdbcDao<T> {
 
   protected final DataSource dataSource;
   private final Extractor<T, ResultSet> extractor;
-  private final StatementPopulator<T> populator;
+  private final StatementInsertion<T> insertion;
 
   protected abstract String createQuery();
   protected abstract String readQuery();
@@ -32,7 +32,7 @@ public abstract class AbstractJdbcDao<T> {
       try (PreparedStatement preparedStatement = connection.prepareStatement(
           createQuery(), Statement.RETURN_GENERATED_KEYS)) {
         System.err.println(entity);
-        populator.populate(preparedStatement, entity);
+        insertion.toInsert(preparedStatement, entity);
       } catch (SQLException ex) {
         //throw new DaoException("Cannot create user", ex);
       }

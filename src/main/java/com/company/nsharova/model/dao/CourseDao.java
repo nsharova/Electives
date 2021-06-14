@@ -1,11 +1,11 @@
-package com.company.nsharova.dao;
-
+package com.company.nsharova.model.dao;
 
 import com.company.nsharova.extractor.Extractor;
 import com.company.nsharova.model.entity.Course;
-import com.company.nsharova.sql.StatementPopulator;
-import java.sql.ResultSet;
+import com.company.nsharova.sql.StatementInsertion;
+
 import javax.sql.DataSource;
+import java.sql.ResultSet;
 
 public class CourseDao extends AbstractJdbcDao<Course> {
 
@@ -20,8 +20,8 @@ public class CourseDao extends AbstractJdbcDao<Course> {
   public CourseDao(
       DataSource dataSource,
       Extractor<Course, ResultSet> extractor,
-      StatementPopulator<Course> populator) {
-    super(dataSource, extractor, populator);
+      StatementInsertion<Course> insertion) {
+    super(dataSource, extractor, insertion);
   }
 
   @Override

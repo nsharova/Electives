@@ -9,6 +9,6 @@ public class User {
     private String password;
     private String firstName;
     private String lastName;
-    private String patronymic;
     private int userRole;
+    private boolean isLocked;
 }

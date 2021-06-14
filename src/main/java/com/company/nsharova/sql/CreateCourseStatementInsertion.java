@@ -5,10 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CreateCourseStatementPopulator implements StatementPopulator<Course> {
+public class CreateCourseStatementInsertion implements StatementInsertion<Course> {
 
   @Override
-  public void populate(PreparedStatement statement, Course entity) throws SQLException {
+  public void toInsert(PreparedStatement statement, Course entity) throws SQLException {
     int index = 1;
     statement.setString(index++, entity.getName());
     statement.setString(index++, entity.getDescription());

@@ -1,10 +1,11 @@
-package com.company.nsharova.controller;
+package com.company.nsharova.controller.command.impl;
 
-import com.company.nsharova.Paths;
+import com.company.nsharova.constant.Paths;
+import com.company.nsharova.controller.command.Command;
 import com.company.nsharova.extractor.Extractor;
 import com.company.nsharova.model.entity.Course;
 import com.company.nsharova.model.entity.Level;
-import com.company.nsharova.service.CourseService;
+import com.company.nsharova.model.service.CourseService;
 import com.company.nsharova.validator.Validator;
 import java.util.HashMap;
 import java.util.Map;

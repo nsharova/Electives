@@ -1,4 +1,4 @@
-package com.company.nsharova.controller;
+package com.company.nsharova.controller.command;
 
 import com.company.nsharova.exception.AppException;
 import javax.servlet.http.HttpServletRequest;

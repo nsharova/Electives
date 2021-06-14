@@ -1,8 +1,9 @@
-package com.company.nsharova.controller;
+package com.company.nsharova.controller.command.impl;
 
-import com.company.nsharova.Paths;
+import com.company.nsharova.constant.Paths;
+import com.company.nsharova.controller.command.Command;
 import com.company.nsharova.model.entity.Course;
-import com.company.nsharova.service.CourseService;
+import com.company.nsharova.model.service.CourseService;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

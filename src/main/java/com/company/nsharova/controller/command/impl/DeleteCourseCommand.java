@@ -1,7 +1,7 @@
-package com.company.nsharova.controller;
+package com.company.nsharova.controller.command.impl;
 
-import com.company.nsharova.Paths;
-import com.company.nsharova.service.CourseService;
+import com.company.nsharova.controller.command.Command;
+import com.company.nsharova.model.service.CourseService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
