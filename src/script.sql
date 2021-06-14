@@ -1,16 +1,15 @@
-CREATE TABLE IF NOT EXISTS users (
-                                     id INT AUTO_INCREMENT PRIMARY KEY,
-                                     login VARCHAR(50) NOT NULL UNIQUE ,
+CREATE TABLE IF NOT EXISTS electives.users (
+                                               id INT AUTO_INCREMENT PRIMARY KEY,
+                                               login VARCHAR(50) NOT NULL UNIQUE ,
     password VARCHAR(50) NOT NULL,
     firstName VARCHAR(100) NOT NULL,
     lastName VARCHAR(100) NOT NULL,
-    patronymic VARCHAR(100) NOT NULL,
     role INT NOT NULL,
-    status INT NOT NULL DEFAULT 0
+    isLocked boolean DEFAULT false
     );
 
 
-CREATE TABLE IF NOT EXISTS courses
+CREATE TABLE IF NOT EXISTS electives.courses
 (
     id          INT AUTO_INCREMENT PRIMARY KEY,
     name        VARCHAR(255) NOT NULL UNIQUE,
@@ -20,13 +19,13 @@ CREATE TABLE IF NOT EXISTS courses
     level       INT          NOT NULL
     );
 
-CREATE TABLE IF NOT EXISTS themes
+CREATE TABLE IF NOT EXISTS electives.themes
 (
     id          INT AUTO_INCREMENT PRIMARY KEY,
     name        VARCHAR(255) NOT NULL UNIQUE
     );
 
-CREATE TABLE IF NOT EXISTS courseAssigment
+CREATE TABLE IF NOT EXISTS electives.courseAssigment
 (
     user_id INT REFERENCES users (id) ON DELETE CASCADE,
     course_id INT REFERENCES courses (id) ON DELETE CASCADE,

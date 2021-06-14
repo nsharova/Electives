@@ -17,6 +17,12 @@ public class CourseDao extends AbstractJdbcDao<Course> {
   private static final String SQL_GET_ALL_COURSES =
       "SELECT * FROM electives.courses";
 
+  private static final String SQL_GET_COURSE_BY_ID =
+          "SELECT * FROM electives.courses WHERE id = ?";
+
+  private static final String SQL_GET_COURSE_BY_NAME =
+          "SELECT * FROM electives.courses where name = ?";
+
   public CourseDao(
       DataSource dataSource,
       Extractor<Course, ResultSet> extractor,
@@ -35,12 +41,19 @@ public class CourseDao extends AbstractJdbcDao<Course> {
   }
 
   @Override
-  protected String readQuery() {
-    return "SELECT * FROM electives.courses WHERE id = ?";
+  protected String findByIdQuery() {
+    return SQL_GET_COURSE_BY_ID;
+  }
+
+  @Override
+  protected String findByNameQuery() {
+    return SQL_GET_COURSE_BY_NAME;
   }
 
   @Override
   protected String removeQuery() {
     return SQL_REMOVE_COURSE;
   }
+
+
 }

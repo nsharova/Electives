@@ -40,7 +40,6 @@ public class DispatcherController extends HttpServlet {
     } catch (AppException ex) {
       request.setAttribute("errorMessage", ex.getMessage());
     }
-
     request.getRequestDispatcher(forward).forward(request, response);
   }
 }

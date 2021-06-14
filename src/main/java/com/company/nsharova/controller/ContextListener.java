@@ -20,12 +20,17 @@ import com.company.nsharova.validator.UserValidator;
 import com.company.nsharova.validator.Validator;
 import com.company.nsharova.model.dao.*;
 import java.sql.ResultSet;
+import javax.naming.NamingException;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.h2.jdbcx.JdbcDataSource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+
 
 @WebListener
 public class ContextListener implements ServletContextListener {
@@ -33,7 +38,12 @@ public class ContextListener implements ServletContextListener {
   @Override
   public void contextInitialized(ServletContextEvent event) {
     // data source
-    DataSource dataSource = dataSource();
+    DataSource dataSource = null;
+    try {
+      dataSource = dataSource();
+    } catch (NamingException e) {
+      e.printStackTrace();
+    }
 
     // extractor
     Extractor<Course, HttpServletRequest> courseExtractor = new CourseExtractor();
@@ -85,8 +95,11 @@ public class ContextListener implements ServletContextListener {
 
   }
 
-  private DataSource dataSource() {
-    String dbDriver = "com.mysql.cj.jdbc.Driver";
+  private DataSource dataSource() throws NamingException {
+
+  // String dbDriver = "com.mysql.cj.jdbc.Driver";
+    String dbDriver = "org.h2.Driver";
+
     try {
       Class.forName(dbDriver);
     } catch (ClassNotFoundException ex) {
@@ -97,9 +110,13 @@ public class ContextListener implements ServletContextListener {
     BasicDataSource dataSource = new BasicDataSource();
 
     dataSource.setDriverClassName(dbDriver);
-    dataSource.setUrl("jdbc:mysql://localhost:3306/electives");
+   // dataSource.setUrl("jdbc:mysql://localhost:3306/electives");
+    dataSource.setUrl("jdbc:h2:~/test");
     dataSource.setUsername("root");
     dataSource.setPassword("Fqdtyuj4808)");
+
+
+
 
     return dataSource;
   }

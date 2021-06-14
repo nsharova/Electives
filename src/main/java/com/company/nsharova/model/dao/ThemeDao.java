@@ -22,6 +22,9 @@ public class ThemeDao extends AbstractJdbcDao<Theme>{
     private static final String SQL_GET_THEME_BY_ID =
             "SELECT * FROM electives.themes WHERE id = ?";
 
+    private static final String SQL_GET_THEME_BY_NAME =
+            "SELECT * FROM electives.themes WHERE name = ?";
+
     private static final String SQL_GET_THEME_BY_COURSE_ID =
             "select distinct themes.name from electives.themes" +
                     "left join themes_courses tc on themes.id = tc.theme_id" +
@@ -48,8 +51,13 @@ public class ThemeDao extends AbstractJdbcDao<Theme>{
     }
 
     @Override
-    protected String readQuery() {
+    protected String findByIdQuery() {
         return SQL_GET_THEME_BY_ID;
+    }
+
+    @Override
+    protected String findByNameQuery() {
+        return SQL_GET_THEME_BY_NAME;
     }
 
     @Override
@@ -73,7 +81,6 @@ public class ThemeDao extends AbstractJdbcDao<Theme>{
             } catch (SQLException ex) {
                 //throw new DaoException("Cannot find all users", ex);
             }
-
             connection.commit();
         } catch (SQLException ex) {
             rollback(connection);

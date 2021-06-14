@@ -26,8 +26,11 @@ public class UserDao extends AbstractJdbcDao<User> {
     private static final String SQL_GET_ALL_USERS =
             "SELECT * FROM electives.users";
 
-    private static final String GET_USER_BY_LOGIN = "SELECT * FROM electives.users " +
-            "WHERE login = ? AND password = ?";
+    private static final String GET_USER_BY_ID = "SELECT * FROM electives.users " +
+            "WHERE id = ?";
+
+    private static final String GET_USER_BY_NAME = "SELECT * FROM electives.users " +
+            "WHERE login = ?";
 
     public UserDao(
             DataSource dataSource,
@@ -47,35 +50,15 @@ public class UserDao extends AbstractJdbcDao<User> {
     }
 
     @Override
-    protected String readQuery() {
-        return "SELECT * FROM electives.users WHERE id = ?";
-    }
+    protected String findByIdQuery() { return GET_USER_BY_ID; };
+
+    @Override
+    protected String findByNameQuery() { return GET_USER_BY_NAME; };
 
     @Override
     protected String removeQuery() {
         return SQL_REMOVE_USER;
     }
 
-    public Optional <User> getByLogin(String login, String password) {
-        logger.info(String.format("Try to get user by login = %s", login));
-        Connection connection = null;
-        User user = null;
-        try {
-            connection = createConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_LOGIN)) {
-                preparedStatement.setString(1, login);
-                preparedStatement.setString(2, password);
-                ResultSet resultSet = preparedStatement.executeQuery());
-                    Extractor<User, ResultSet> userFromRsExtractor = new UserFromRsExtractor();
-                    user = userFromRsExtractor.extractFrom(resultSet);
-                }
-            } catch (SQLException e) {
-                logger.error(String.format("Cannot get user by login = %s", login), e);
-                throw new RuntimeException("Cannot get user", e);
-            }
-        } finally {
-            close(connection);
-        }
-        return user;
-    }
+
 }

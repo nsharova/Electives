@@ -5,6 +5,7 @@ import com.company.nsharova.model.entity.User;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class UserService {
@@ -23,5 +24,5 @@ public class UserService {
         return userDao.remove(courseId);
     }
 
-    public User get
+    public Optional<User> getUserByLogin(String login) {return userDao.getByName(login);}
 }

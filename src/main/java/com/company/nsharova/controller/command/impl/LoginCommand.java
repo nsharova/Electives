@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -29,6 +29,7 @@ public class LoginCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String destination = Paths.LOGIN_PAGE;
+        Optional<User> user = null;
 
         if ("GET".equals(request.getMethod())) {
             return destination;
@@ -39,16 +40,15 @@ public class LoginCommand implements Command {
             String password = request.getParameter("password");
 
 
-
-
             if (errors.isEmpty()) {
-                userService.create(user);
-                destination = "/controller?command=themes";
+                destination = "/controller?command=login";
+                user = userService.getUserByLogin(login);
             } else {
                 HttpSession session = request.getSession();
                 session.setAttribute("errors", errors);
                 session.setAttribute("tempTheme", user);
             }
+
         }
         return destination;
     }
