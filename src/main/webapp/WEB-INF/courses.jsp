@@ -5,6 +5,13 @@
     <title>Courses</title>
 </head>
 <body>
+
+<c:when test="${sessionScope.loggedUser.userRole == 1}">
+   hello, admin
+</c:when>
+
+
+
 <table>
     <tr>
         <th>Name</th>

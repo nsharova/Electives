@@ -97,8 +97,8 @@ public class ContextListener implements ServletContextListener {
 
   private DataSource dataSource() throws NamingException {
 
-  // String dbDriver = "com.mysql.cj.jdbc.Driver";
-    String dbDriver = "org.h2.Driver";
+   String dbDriver = "com.mysql.cj.jdbc.Driver";
+  //  String dbDriver = "org.h2.Driver";
 
     try {
       Class.forName(dbDriver);
@@ -109,8 +109,8 @@ public class ContextListener implements ServletContextListener {
 
     BasicDataSource dataSource = new BasicDataSource();
 
-    dataSource.setDriverClassName(dbDriver);
-   // dataSource.setUrl("jdbc:mysql://localhost:3306/electives");
+    //dataSource.setDriverClassName(dbDriver);
+    dataSource.setUrl("jdbc:mysql://localhost:3306/electives");
     dataSource.setUrl("jdbc:h2:~/test");
     dataSource.setUsername("root");
     dataSource.setPassword("Fqdtyuj4808)");

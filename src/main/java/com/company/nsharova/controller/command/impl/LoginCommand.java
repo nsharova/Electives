@@ -38,13 +38,14 @@ public class LoginCommand implements Command {
 
             String login = request.getParameter("login");
             String password = request.getParameter("password");
-
+            HttpSession session = request.getSession();
 
             if (errors.isEmpty()) {
-                destination = "/controller?command=login";
                 user = userService.getUserByLogin(login);
+                user.ifPresent(loggedUser -> session.setAttribute("loggedUser", loggedUser));
+                destination = "/controller?command=courses";
             } else {
-                HttpSession session = request.getSession();
+
                 session.setAttribute("errors", errors);
                 session.setAttribute("tempTheme", user);
             }

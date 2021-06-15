@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +18,8 @@
     <h2>
         Start Page!
     </h2>
+
+
 
     <br/>
     <a href="controller?command=login">Login</a>
