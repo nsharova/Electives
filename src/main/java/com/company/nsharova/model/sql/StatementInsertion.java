@@ -1,4 +1,4 @@
-package com.company.nsharova.sql;
+package com.company.nsharova.model.sql;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

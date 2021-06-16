@@ -6,19 +6,13 @@
 </head>
 <body>
 
-<c:when test="${sessionScope.loggedUser.userRole == 1}">
-   hello, admin
-</c:when>
-
-
-
-<table>
+    <table>
     <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Duration</th>
-        <th>Owner Id</th>
-        <th>User Level</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Duration</th>
+    <th>Owner Id</th>
+    <th>User Level</th>
     </tr>
     <c:forEach items="${requestScope.courses}" var="course">
         <tr>
@@ -35,8 +29,8 @@
             </td>
         </tr>
     </c:forEach>
-</table>
-<a href="?command=add_course">Add course</a>
+    </table>
+    <a href="?command=add_course">Add course</a>
 
 </body>
 </html>

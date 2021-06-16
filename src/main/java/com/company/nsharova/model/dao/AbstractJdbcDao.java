@@ -1,7 +1,7 @@
 package com.company.nsharova.model.dao;
 
 import com.company.nsharova.extractor.Extractor;
-import com.company.nsharova.sql.StatementInsertion;
+import com.company.nsharova.model.sql.StatementInsertion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -129,6 +129,7 @@ public abstract class AbstractJdbcDao<T> {
         Connection connection = null;
         try {
             connection = dataSource.getConnection();
+            System.out.println("CoNN: "+connection);
 
             try (Statement statement = connection.createStatement()) {
                 ResultSet rs = statement.executeQuery(findAllQuery());
@@ -147,9 +148,12 @@ public abstract class AbstractJdbcDao<T> {
 
     protected Connection createConnection() {
         try {
+            System.out.println("created connection succesful");
             return dataSource.getConnection();
         } catch (SQLException ex) {
+            System.out.println("created connection failed");
             throw new RuntimeException();
+
             //throw new DaoException("Cannot obtain connection from pull", ex);
         }
     }

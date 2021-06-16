@@ -1,4 +1,4 @@
-package com.company.nsharova.sql;
+package com.company.nsharova.model.sql;
 
 import com.company.nsharova.model.entity.Course;
 import java.sql.PreparedStatement;

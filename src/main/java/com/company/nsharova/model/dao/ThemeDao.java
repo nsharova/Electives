@@ -2,7 +2,7 @@ package com.company.nsharova.model.dao;
 
 import com.company.nsharova.extractor.Extractor;
 import com.company.nsharova.model.entity.Theme;
-import com.company.nsharova.sql.StatementInsertion;
+import com.company.nsharova.model.sql.StatementInsertion;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -33,8 +33,7 @@ public class ThemeDao extends AbstractJdbcDao<Theme>{
 
 
 
-    public ThemeDao(
-            DataSource dataSource,
+    public ThemeDao(DataSource dataSource,
             Extractor<Theme, ResultSet> extractor,
             StatementInsertion<Theme> insertion) {
         super(dataSource, extractor, insertion);

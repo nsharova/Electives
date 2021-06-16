@@ -2,10 +2,10 @@ package com.company.nsharova.model.dao;
 
 import com.company.nsharova.extractor.Extractor;
 import com.company.nsharova.model.entity.Course;
-import com.company.nsharova.sql.StatementInsertion;
+import com.company.nsharova.model.sql.StatementInsertion;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
+import java.sql.*;
 
 public class CourseDao extends AbstractJdbcDao<Course> {
 
@@ -21,6 +21,9 @@ public class CourseDao extends AbstractJdbcDao<Course> {
           "SELECT * FROM electives.courses WHERE id = ?";
 
   private static final String SQL_GET_COURSE_BY_NAME =
+          "SELECT * FROM electives.courses where name = ?";
+
+  private static final String SQL_GET_COURSE_USER_ID =
           "SELECT * FROM electives.courses where name = ?";
 
   public CourseDao(
@@ -54,6 +57,26 @@ public class CourseDao extends AbstractJdbcDao<Course> {
   protected String removeQuery() {
     return SQL_REMOVE_COURSE;
   }
+/*
+  public List<Course> getAllCoursesByUserId(int userId) {
+    List<Course> courses = new ArrayList<>();
+    Connection connection = null;
+    try {
+      connection = createConnection();
 
+      PreparedStatement preparedStatement = connection.prepareStatement()) {
+        ResultSet rs = statement.executeQuery(findAllQuery());
+        while (rs.next()) {
+          courses.add(extractor.extractFrom(rs));
+        }
+      }
+    } catch (SQLException ex) {
+      //throw new DaoException("Cannot find all users", ex);
+      //throw new DaoException("Cannot commit transaction", ex);
+    } finally {
+      close(connection);
+    }
+    return entries;
 
+ */
 }

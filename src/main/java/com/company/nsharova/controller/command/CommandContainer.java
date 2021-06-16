@@ -16,6 +16,8 @@ public class CommandContainer {
     }
 
     public static Command get(String commandName) {
+        System.out.println(commandName);
+
         return Optional.ofNullable(commandName)
                 .map(commands::get)
                 .orElse(noCommand);

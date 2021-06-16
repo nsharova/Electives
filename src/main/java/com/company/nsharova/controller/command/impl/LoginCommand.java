@@ -38,16 +38,21 @@ public class LoginCommand implements Command {
 
             String login = request.getParameter("login");
             String password = request.getParameter("password");
+            if( login == null || login.equals("") || password == null || password.equals("")  ){
+                return destination;
+            }
             HttpSession session = request.getSession();
 
             if (errors.isEmpty()) {
                 user = userService.getUserByLogin(login);
-                user.ifPresent(loggedUser -> session.setAttribute("loggedUser", loggedUser));
+                if (user.isPresent() && user.get().getPassword().equals(password)){
+                session.setAttribute("loggedUser", user.get());
                 destination = "/controller?command=courses";
+                }
             } else {
 
                 session.setAttribute("errors", errors);
-                session.setAttribute("tempTheme", user);
+                session.setAttribute("tempUser", user.get());
             }
 
         }

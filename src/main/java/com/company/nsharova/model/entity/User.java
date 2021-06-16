@@ -2,8 +2,10 @@ package com.company.nsharova.model.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class User {
+public class User implements Serializable {
     private int id;
     private String login;
     private String password;

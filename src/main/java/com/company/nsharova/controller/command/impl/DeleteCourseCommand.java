@@ -13,7 +13,8 @@ public class DeleteCourseCommand implements Command {
 
   @Override
   public String execute(HttpServletRequest request, HttpServletResponse response) {
-    Integer courseId = Integer.valueOf(request.getParameter("courseId"));
+    Integer courseId= Integer.valueOf(request.getParameter("courseId"));
+
 
     System.err.println(courseId);
     if (!courseService.removeCourseById(courseId)) {

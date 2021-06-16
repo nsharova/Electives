@@ -33,10 +33,13 @@ public class DispatcherController extends HttpServlet {
     String commandName = request.getParameter("command");
 
     Command command = CommandContainer.get(commandName);
+    System.out.println("Command name "+commandName);
 
     String forward = Paths.ERROR_PAGE;
     try {
+      System.out.println("DElETE");
       forward = command.execute(request, response);
+      System.out.println("DElETE2");
     } catch (AppException ex) {
       request.setAttribute("errorMessage", ex.getMessage());
     }

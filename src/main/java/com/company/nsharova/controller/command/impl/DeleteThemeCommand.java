@@ -14,6 +14,8 @@ public class DeleteThemeCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+
+        System.out.println("START");
         Integer themeId = Integer.valueOf(request.getParameter("themeId"));
 
         System.err.println(themeId);
@@ -25,6 +27,6 @@ public class DeleteThemeCommand implements Command {
 
     @Override
     public String getName() {
-        return "delete_course";
+        return "delete_theme";
     }
 }
