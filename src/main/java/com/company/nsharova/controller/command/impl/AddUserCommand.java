@@ -3,39 +3,45 @@ package com.company.nsharova.controller.command.impl;
 import com.company.nsharova.constant.Paths;
 import com.company.nsharova.controller.command.Command;
 import com.company.nsharova.extractor.Extractor;
-import com.company.nsharova.model.entity.Theme;
 import com.company.nsharova.model.entity.User;
-import com.company.nsharova.model.service.ThemeService;
+import com.company.nsharova.model.service.UserService;
 import com.company.nsharova.validator.Validator;
 import lombok.RequiredArgsConstructor;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
+
 @RequiredArgsConstructor
-public class  AddThemeCommand implements Command {
-    private final Extractor<Theme, HttpServletRequest> themeExtractor;
-    private final Validator<Theme> themeValidator;
-    private final ThemeService themeService;
+public abstract class AddUserCommand implements Command {
+    private final Extractor<User, HttpServletRequest> userExtractor;
+    private final Validator<User> userValidator;
+    private final UserService userService;
+    private final String startDestination;
+    private final String forwardDestination;
+    private final int userRole;
+    private final String userCommandName;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String destination = Paths.ADD_THEME_PAGE;
+        String destination = startDestination;
+
         if ("POST".equals(request.getMethod())) {
             Map<String, String> errors = new HashMap<>();
-            HttpSession session = request.getSession();
 
-            Theme theme = themeExtractor.extractFrom(request);
-            themeValidator.validate(theme, errors);
+            User user = userExtractor.extractFrom(request);
+            userValidator.validate(user, errors);
+
             if (errors.isEmpty()) {
-                themeService.create(theme);
-                destination = "/controller?command=themes";
+                userService.create(user);
+                user.setUserRole(userRole);
+                destination = forwardDestination;
             } else {
+                HttpSession session = request.getSession();
                 session.setAttribute("errors", errors);
-                session.setAttribute("tempTheme", theme);
+                session.setAttribute("tempCourse", user);
             }
         }
         return destination;
@@ -43,6 +49,6 @@ public class  AddThemeCommand implements Command {
 
     @Override
     public String getName() {
-        return "add_theme";
+        return userCommandName;
     }
 }

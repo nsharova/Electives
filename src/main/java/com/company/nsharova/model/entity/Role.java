@@ -1,7 +1,7 @@
 package com.company.nsharova.model.entity;
 
 public enum Role {
-    ADMIN(1), GUEST(2), STUDENT(3), TEACHER(4);
+    ADMIN(1), TEACHER(2), STUDENT(3), GUEST(4);
 
     private final int userRole;
 
