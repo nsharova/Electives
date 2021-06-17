@@ -6,6 +6,15 @@
 </head>
 <body>
 
+
+<div class=" w3-green">
+    <a href="controller?command=courses">Courses</a>
+</div>
+
+<div class=" w3-green">
+    <a href="controller?command=themes">Themes</a>
+</div>
+
     <table>
     <tr>
     <th>Name</th>

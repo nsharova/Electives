@@ -13,30 +13,19 @@
     <link rel="stylesheet" href="assets/css/login.css">
 </head>
 <body>
-<main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+<main>
 
     <h2>
-        Start Page!
+        Start Page! <br/>
     </h2>
 
-
-
-    <br/>
-    <a href="controller?command=login">Login</a>
-    <br/>
-    <a href="controller?command=registration">Registration form</a>
-    <br>
-    <a href="controller?command=exception">Exception</a>
-
-
-
-        <div class=" w3-green">
-            <a href="controller?command=courses">Courses</a>
-        </div>
-
-    <div class=" w3-green">
-        <a href="controller?command=themes">Themes</a>
+    <div>
+      <a href="controller?command=login">Login</a><br/>
+      <a href="controller?command=registration">Registration form</a><br/>
+      <a href="controller?command=exception">Exception</a><br/>
     </div>
+
+
 
 </main>
 </body>

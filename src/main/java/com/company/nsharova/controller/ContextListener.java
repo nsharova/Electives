@@ -94,7 +94,7 @@ public class ContextListener implements ServletContextListener {
         LogOutCommand logOutCommand = new LogOutCommand();
         CommandContainer.register(logOutCommand);
 
-        AddCourseCommand addCourseCommand = new AddCourseCommand(courseExtractor, courseValidator, courseService);
+        AddCourseCommand addCourseCommand = new AddCourseCommand(courseExtractor, courseValidator, courseService,userService);
         CommandContainer.register(addCourseCommand);
         GetCoursesCommand getCoursesCommand = new GetCoursesCommand(courseService);
         CommandContainer.register(getCoursesCommand);

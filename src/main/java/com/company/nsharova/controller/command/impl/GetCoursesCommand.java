@@ -18,7 +18,7 @@ public class GetCoursesCommand implements Command {
   public String execute(HttpServletRequest request, HttpServletResponse response) {
     List<Course> courses = courseService.findAll();
     request.setAttribute("courses", courses);
-    return Paths.COURSES_PAGE;
+    return Paths.COURSE_ADMIN_PAGE;
   }
 
   @Override

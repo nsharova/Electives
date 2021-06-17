@@ -35,9 +35,14 @@
             </c:forEach>
         </select>
     </div>
-    <div>
-        <input id="ownerId" name="ownerId" type="hidden" value="1"/>
-    </div>
+    <%--! <div>
+        <label for="ownerId">Choose moderator:</label>
+        <select name="ownerId" id="ownerId">
+            <c:forEach items="${requestScope.teachers}" var="owner">
+                <option value="${owner.id}">${owner.firstName()}</option>
+            </c:forEach>
+        </select>
+    </div> --%>
     <button>Create</button>
 </form>
 </body>

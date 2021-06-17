@@ -5,8 +5,8 @@ public enum Level {
 
         private final int userLevel;
 
-        Level(int userRole) {
-            this.userLevel = userRole;
+        Level(int userLevel) {
+            this.userLevel = userLevel;
         }
 
         public int getAccessLevel() {

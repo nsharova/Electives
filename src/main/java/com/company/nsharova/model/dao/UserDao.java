@@ -1,12 +1,16 @@
 package com.company.nsharova.model.dao;
 
 import com.company.nsharova.extractor.Extractor;
+import com.company.nsharova.extractor.impl.UserFromRsExtractor;
 import com.company.nsharova.model.entity.User;
 import com.company.nsharova.model.sql.StatementInsertion;
 import org.apache.log4j.Logger;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class UserDao extends AbstractJdbcDao<User> {
     private static final Logger logger = Logger.getLogger(UserDao.class);
@@ -24,6 +28,9 @@ public class UserDao extends AbstractJdbcDao<User> {
 
     private static final String GET_USER_BY_NAME = "SELECT * FROM electives.users " +
             "WHERE login = ?";
+
+    private static final String GET_USERS_BY_ROLE = "SELECT * FROM electives.users " +
+            "WHERE role = ?";
 
     public UserDao(
             DataSource dataSource,
@@ -53,5 +60,28 @@ public class UserDao extends AbstractJdbcDao<User> {
         return SQL_REMOVE_USER;
     }
 
+
+    public List<User> findUsersByRole(int role) {
+        List<User> users = new ArrayList<>();
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection();
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(GET_USERS_BY_ROLE)) {
+                preparedStatement.setInt(1, role);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                Extractor<User,ResultSet>  userFromRsExtractor = new UserFromRsExtractor();
+                while (resultSet.next()) {
+                    users.add(userFromRsExtractor.extractFrom(resultSet));
+                }
+            }
+        } catch (SQLException ex) {
+            //throw new DaoException("Cannot find all users", ex);
+            //throw new DaoException("Cannot commit transaction", ex);
+        } finally {
+            close(connection);
+        }
+        return users;
+    }
 
 }

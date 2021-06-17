@@ -5,9 +5,12 @@ import com.company.nsharova.controller.command.Command;
 import com.company.nsharova.extractor.Extractor;
 import com.company.nsharova.model.entity.Course;
 import com.company.nsharova.model.entity.Level;
+import com.company.nsharova.model.entity.User;
 import com.company.nsharova.model.service.CourseService;
+import com.company.nsharova.model.service.UserService;
 import com.company.nsharova.validator.Validator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,12 +23,13 @@ public class AddCourseCommand implements Command {
   private final Extractor<Course, HttpServletRequest> courseExtractor;
   private final Validator<Course> courseValidator;
   private final CourseService courseService;
-
+  private final UserService userService;
   @Override
   public String execute(HttpServletRequest request, HttpServletResponse response) {
     String destination = Paths.ADD_COURSE_PAGE;
-
+   // List<User> teachers =  userService.findUsersByRole(2);
     if ("GET".equals(request.getMethod())) {
+     // request.setAttribute("teachers", teachers);
       request.setAttribute("levels", Level.values());
     } else if ("POST".equals(request.getMethod())) {
       Map<String, String> errors = new HashMap<>();

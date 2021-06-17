@@ -45,12 +45,13 @@ public class LoginCommand implements Command {
 
             if (errors.isEmpty()) {
                 user = userService.getUserByLogin(login);
-                if (user.isPresent() && user.get().getPassword().equals(password)){
+                System.out.println("LOGGED USER: " + user.get().getLogin());
+                if (user.isPresent() && user.get().getPassword().equals(password)
+                 ){
                 session.setAttribute("loggedUser", user.get());
                 destination = "/controller?command=courses";
                 }
             } else {
-
                 session.setAttribute("errors", errors);
                 session.setAttribute("tempUser", user.get());
             }
